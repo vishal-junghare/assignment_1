@@ -1,60 +1,135 @@
-def min_platforms(arrivals, departures):
-    """
-    Calculate minimum number of platforms needed at a railway station.
-    
-    Args:
-        arrivals: List of arrival times in HH:MM format
-        departures: List of departure times in HH:MM format
+from datetime import date
+from typing import List
+
+# Given a sorted array of positive and negative numbers. You have to Square it and sort it. Constraint : Time complexity O(n) 
+# Example: 
+# Input: [-12, -8 , -7, -5, 2, 4, 5, 11, 15] 
+# Output : [4, 16, 25, 25, 49, 56, 121, 144, 225] 
+
+
+
+def sorted_squares(arr):
+    n = len(arr)
+    result = [0] * n
+    left, right = 0, n - 1
+    position = n - 1
+
+    while left <= right:
+        if abs(arr[left]) > abs(arr[right]):
+            result[position] = arr[left] * arr[left]
+            left += 1
+        else:
+            result[position] = arr[right] * arr[right]
+            right -= 1
+        position -= 1
+
+    return result
+
+# Example usage
+input_array = [-12, -8, -7, -5, 2, 4, 5, 11, 15]
+output_array = sorted_squares(input_array)
+print(output_array)
+
+class Address:
+    def __init__(self, street: str, city: str, zip_code: str):
+        self.street = street
+        self.city = city
+        self.zip_code = zip_code
+
+
+# Design an immutable class with following attributes 
+# String name; 
+# String Id, 
+# Date dateOfJoining 
+# List<Address> addresses; 
+
+class ImmutableEmployee:
+    def __init__(self, name: str, emp_id: str, date_of_joining: date, addresses: List[Address]):
+        self._name = name
+        self._id = emp_id
+        self._date_of_joining = date_of_joining
+        self._addresses = addresses
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def emp_id(self):
+        return self._id
+
+    @property
+    def date_of_joining(self):
+        return self._date_of_joining
+
+    @property
+    def addresses(self):
+        return self._addresses.copy()
         
-    Returns:
-        int: Minimum number of platforms required
-    """
-    # Convert times to minutes for easier comparison
-    def time_to_minutes(time_str):
-        hours, minutes = map(int, time_str.split(':'))
-        return hours * 60 + minutes
+
+# Given an array of Red Green Blue balls.You have to sort it. 
+# Constraint : Time complexity O(n) 
+# Constraint : Space complexity O(1) 
+# Example: 
+# Input: [R, G, B, G, G, R, B, B, G] 
+# Output : [B,B,B,G,G,G,G,R, R] 
+
+def sort_rgb(arr):
+    low, mid, high = 0, 0, len(arr) - 1
+
+    while mid <= high:
+        if arr[mid] == 'R':
+            arr[low], arr[mid] = arr[mid], arr[low]
+            low += 1
+            mid += 1
+        elif arr[mid] == 'G':
+            mid += 1
+        else:  # arr[mid] == 'B'
+            arr[mid], arr[high] = arr[high], arr[mid]
+            high -= 1
+
+    return arr
+
+# Example usage
+input_balls = ['R', 'G', 'B', 'G', 'G', 'R', 'B', 'B', 'G']
+output_balls = sort_rgb(input_balls)
+print(output_balls[::-1])
+
+# Input: arr[] = {9:00, 9:40, 9:50, 11:00, 15:00, 18:00}, dep[] = {9:10, 12:00, 11:20, 11:30, 19:00, 20:00} 
+# Output: 3 
+# Explanation: There are at-most three trains at a time (time between 9:40 to 12:00) 
+# Input: arr[] = {9:00, 9:40}, dep[] = {9:10, 12:00} 
+# Output: 1 
+
+
+def find_minimum_platforms(arr, dep):
+    arr.sort()
+    dep.sort()
+    n = len(arr)
     
-    # Convert all times to minutes
-    arr_times = [time_to_minutes(t) for t in arrivals]
-    dep_times = [time_to_minutes(t) for t in departures]
-    
-    # Sort both arrays
-    arr_times.sort()
-    dep_times.sort()
-    
-    platforms_needed = 1  # At least one platform is needed
+    platform_needed = 1
     result = 1
-    i = 1  # Start from second arrival
-    j = 0  # Start from first departure
+    i = 1
+    j = 0
     
-    # Similar to merge process of merge sort
-    while i < len(arr_times) and j < len(dep_times):
-        # If next arrival is before current departure
-        if arr_times[i] <= dep_times[j]:
-            platforms_needed += 1
+    while i < n and j < n:
+        if arr[i] <= dep[j]:
+            platform_needed += 1
             i += 1
-        # If a train has departed, we can reduce the platform count
-        elif arr_times[i] > dep_times[j]:
-            platforms_needed -= 1
+        elif arr[i] > dep[j]:
+            platform_needed -= 1
             j += 1
-            
-        result = max(result, platforms_needed)
+        
+        if platform_needed > result:
+            result = platform_needed
     
     return result
 
-# Test cases
-test_cases = [
-    {
-        'arrivals': ['9:00', '9:40', '9:50', '11:00', '15:00', '18:00'],
-        'departures': ['9:10', '12:00', '11:20', '11:30', '19:00', '20:00']
-    },
-    {
-        'arrivals': ['9:00', '9:40'],
-        'departures': ['9:10', '12:00']
-    }
-]
+# Example usage
+arrival_times = [900, 940, 950, 1100, 1500, 1800]
+departure_times = [910, 1200, 1120, 1130, 1900, 2000]
+print(find_minimum_platforms(arrival_times, departure_times))
 
-# Run test cases
-for i, test in enumerate(test_cases, 1):
-    result = min_platforms(test['arrivals'], test['departures'])
-    print(f"Test case {i}: {result} platforms needed")
+arrival_times = [900, 940]
+departure_times = [910, 1200]
+print(find_minimum_platforms(arrival_times, departure_times))
