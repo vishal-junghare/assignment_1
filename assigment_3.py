@@ -23,7 +23,7 @@ for i in range(1, factorial_number + 1):
     factorial *= i
 print(f"The factorial of {factorial_number} is {factorial}")
 
-Reverse a string using a for loop
+# Reverse a string using a for loop
 input_string = input("Enter a string to reverse: ")
 reversed_string = ""
 for char in input_string:
@@ -41,14 +41,14 @@ for i in range(1, input_number + 1):
     print("* " * i)
 
 
-Print the following inverted triangle pattern using a for loop:*
+# Print the following inverted triangle pattern using a for loop:*
 input_number = int(input("Enter a number: "))
 print("Right angle triangle:")
 for i in range(input_number, 0, -1):
     print("* " * i)
 
 
-print the following pyramid pattern using for loop 
+# print the following pyramid pattern using for loop 
 input_number = int(input("Enter a number: "))
 print("Pyramid pattern:")
 for  i in range(1, input_number + 1):
@@ -64,7 +64,7 @@ for i in range(1, input_number + 1):
 for i in range(input_number - 1, 0, -1):
     print(" " * (input_number - i) + "* " * i)
     
-print the following number pattern using for loop
+# print the following number pattern using for loop
 
 #print the following right angle triangle using for loop
 input_number = int(input("Enter a number: "))
@@ -75,7 +75,7 @@ for i in range(1, input_number + 1):
     print(string)
 
 
-print followoing number pathhern using for loop 
+# print followoing number pathhern using for loop 
 input_number = int(input("Enter a number: ")) 
 for  i in range(1,input_number+1):
     string=""
@@ -83,7 +83,7 @@ for  i in range(1,input_number+1):
         string+=str(i)+" "
     print(string)
         
-print the following hollow square pattern using for loop
+# print the following hollow square pattern using for loop
 input_number = int(input("Enter a number: "))
 print("Hollow square pattern:")
 for i in range(1,input_number+1):
@@ -93,7 +93,7 @@ for i in range(1,input_number+1):
         print("* " + "  " * (input_number-2) + "* ")
 
 
-print the following hollow triangle pattern using for loop
+# print the following hollow triangle pattern using for loop
 input_number = int(input("Enter a number: "))
 print("Hollow tr5iangle pattern:")
 
@@ -106,7 +106,7 @@ for i in range(1,input_number+1):
         print(" "*hollow_space+"* "+"  "*(i-2)+"*")
         
     
-print the following checkboard pattern using for loop
+# print the following checkboard pattern using for loop
 input_number = int(input("Enter a number: "))
 print("Checkboard pattern:")
 for i in range(1,input_number+1):
